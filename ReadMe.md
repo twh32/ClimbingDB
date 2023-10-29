@@ -34,10 +34,6 @@ This repository contains data and visualizations related to a bouldering dataset
 - **Python Scripts**:
   - `dt_pandas.py`: Script for data processing using pandas.
 
-- **Visualizations**:
-  - `Figure_1.png`: Visualization 1 derived from the dataset.
-  - `Figure_2.png`: Visualization 2 derived from the dataset.
-  - `Figure_3.png`: Visualization 3 derived from the dataset.
 
 ## Prerequisites
 
