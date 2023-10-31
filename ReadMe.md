@@ -51,12 +51,5 @@ This repository contains data and visualizations related to a bouldering dataset
 
 We merged the climbing data with demographic data to derive insights and conclusions. The merged data can be found in `merged_demographics.csv`. The visualizations provide a clear representation of these findings.
 
-##  Visualizations
-### Correlation Matrix: 
 
-![Visualization 1](./Figure_5.png)
-
-![Visualization 2](./Figure_2.png)
-
-![Visualization 3](./Figure_1.png)
 
