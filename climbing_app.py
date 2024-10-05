@@ -1,7 +1,4 @@
 import streamlit as st
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
 
 # Function to load the data with caching
 @st.cache_data
