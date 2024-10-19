@@ -1,3 +1,5 @@
+![Test Status](https://github.com/twh32/ClimbingDB/actions/workflows/python-app.yml/badge.svg)
+
 ## Getting Started
 
 1. Clone the repository:
