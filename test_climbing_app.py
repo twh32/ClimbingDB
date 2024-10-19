@@ -1,27 +1,32 @@
 import pytest
-import pandas as pd
-from climbing_app import load_data
+from fastapi.testclient import TestClient
+from climbing_api import app
 
-# Test to check if data is loaded correctly
-def test_load_data():
-    # Load the data using the load_data function
-    data = load_data()
+# Set up a TestClient for the FastAPI app
+client = TestClient(app)
 
-    # Ensure the DataFrame is not empty
-    assert not data.empty, "Data should not be empty"
+# Test for the root endpoint
+def test_root_endpoint():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"message": "Welcome to the Climbing API"}
 
-    # Ensure required columns are present
-    required_columns = ['Experience (yrs)', 'grade_numeric', 'success']
-    for column in required_columns:
-        assert column in data.columns, f"Missing required column: {column}"
+# Test to check if the climbers-by-grade endpoint works for a specific grade
+@pytest.mark.parametrize("grade", [4, 5])
+def test_climbers_by_grade(grade):
+    response = client.get(f"/climbers-by-grade/{grade}")
+    assert response.status_code == 200
+    climbers = response.json()
 
-# Test to check if the experience correlates with grade_numeric
-def test_experience_grade_correlation():
-    data = load_data()
+    # Ensure climbers are returned for the given grade
+    assert len(climbers) > 0, f"No climbers found for grade {grade}"
 
-    # Filter data to remove any null values
-    filtered_data = data[['Experience (yrs)', 'grade_numeric']].dropna()
+    # Check that all returned climbers have the correct grade
+    for climber in climbers:
+        assert climber["Max Grades"] == grade, f"Incorrect grade returned for climber: {climber}"
 
-    # Assert there is some correlation between experience and grade_numeric
-    correlation = filtered_data.corr().loc['Experience (yrs)', 'grade_numeric']
-    assert correlation > 0, "Experience should have a positive correlation with grade_numeric"
+# Test for a non-existent grade (expecting a 404 error)
+def test_climbers_by_grade_not_found():
+    response = client.get("/climbers-by-grade/11")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "No climbers found for grade 11.0"}
