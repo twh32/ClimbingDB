@@ -1,4 +1,4 @@
-name: Python CI
+name: Python application
 
 on:
   push:
@@ -9,14 +9,14 @@ on:
       - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        python-version: [3.13.0, 3.11.9]  # Test with multiple Python versions
+        python-version: [3.11, 3.12]  # List of Python versions to test against
 
- steps:
+    steps:
     - uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v2
