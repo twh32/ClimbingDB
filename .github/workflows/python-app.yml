@@ -16,19 +16,21 @@ jobs:
       matrix:
         python-version: [3.13.0, 3.11.9]  # Test with multiple Python versions
 
-    steps:
+ steps:
     - uses: actions/checkout@v2
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+        
     - name: Install dependencies
       run: |
         python -m venv venv                # Create virtual environment
-        source venv/bin/activate            # Activate virtual environment
+        source ./venv/bin/activate          # Activate virtual environment
         pip install -r requirements.txt     # Install dependencies
         pip install pytest                  # Install pytest
+        
     - name: Run tests
       run: |
-        source venv/bin/activate            # Activate virtual environment again
+        source ./venv/bin/activate          # Activate the virtual environment again before running tests
         pytest                              # Run tests
